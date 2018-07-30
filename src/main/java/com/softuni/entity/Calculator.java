@@ -2,13 +2,13 @@ package com.softuni.entity;
 
 public class Calculator {
     private double leftOperand;
-    private double rightOperand;
     private String operator;
+    private double rightOperand;
 
     public Calculator() {
     }
 
-    public Calculator(double leftOperand, double rightOperand, String operator) {
+    public Calculator(double leftOperand, String operator, double rightOperand) {
         this.leftOperand = leftOperand;
         this.rightOperand = rightOperand;
         this.operator = operator;
@@ -40,19 +40,33 @@ public class Calculator {
 
 
     public double calculateResult(){
-        double result = 0;
+
 
         switch (this.operator){
             case "+":
-                result = this.leftOperand+this.rightOperand; break;
+                return this.leftOperand+this.rightOperand;
             case "-":
-                result = this.leftOperand-this.rightOperand; break;
+                return this.leftOperand-this.rightOperand;
             case "*":
-                result = this.leftOperand*this.rightOperand; break;
+                return this.leftOperand*this.rightOperand;
             case "/":
-                result = this.leftOperand/this.rightOperand; break;
+                return this.leftOperand/this.rightOperand;
+            case "F":
+                double[] arr = new double[(int)this.leftOperand+1];
+                return fib(this.leftOperand, arr);
         }
 
-        return result;
+        return 0;
+    }
+
+    private double fib(double leftOperand, double[] arr) {
+        if (leftOperand<3) {
+            return 1;
+        }
+        int index = (int)leftOperand;
+        if (arr[index] !=0){
+            return arr[index];
+        }
+        return arr[index] = fib(leftOperand-1, arr)+fib(leftOperand-2, arr);
     }
 }

@@ -17,14 +17,24 @@ public class HomeController {
 	}
 
 	@PostMapping("/")
-	public String calculate(@RequestParam(name = "leftOperand") String num1,
-							@RequestParam(name="rightOperand") String num2,
-							@RequestParam(name = "operator") String operator,
+	public String calculate(@RequestParam String leftOperand,
+							@RequestParam String operator,
+							@RequestParam String rightOperand,
 							Model model){
-		Double leftOperand = Double.parseDouble(num1);
-		Double rightoperand = Double.parseDouble(num2);
+		double num1, num2;
 
-		Calculator calculator = new Calculator(leftOperand, rightoperand, operator);
+		try	{
+			num1 = Double.parseDouble(leftOperand);
+		}catch (NumberFormatException ex){
+			num1 = 0;
+		}
+		try{
+			num2 = Double.parseDouble(rightOperand);
+		}catch (NumberFormatException ex){
+			num2 =0;
+		}
+
+		Calculator calculator = new Calculator(num1, operator, num2);
 		double result = calculator.calculateResult();
 
 		model.addAttribute("view", "views/calculatorForm");
